@@ -1,0 +1,104 @@
+---
+title: "CRT-lab2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+Part A: Multiple Models
+Run the code below to load the following dataset.
+```{r PartA}
+
+#Run the code below to load the following dataset.
+file <- "https://github.com/datalorax/esvis/raw/master/data/benchmarks.rda"
+load(url(file))
+head(benchmarks)
+
+#Recode season to wave with the following code
+library(tidyverse)
+
+benchmarks <- benchmarks %>%
+	as_tibble() %>%
+	mutate(wave = case_when(season == "Fall" ~ 0,
+	                        season == "Winter" ~ 1,
+	                        TRUE ~ 2))
+
+
+```
+
+1.Fit a model of the form lm(math ~ wave) for each student.
+```{r}
+
+```
+
+2.Plot the distribution of slopes. Annotate the plot with a vertical line for the mean.
+```{r}
+
+```
+
+
+Part B: Starwars 
+
+1.Use the sw_films list to identify how many characters were represented in each film.
+
+```{r}
+install.packages("repurrrsive")
+library(repurrrsive)
+ 
+
+```
+
+2.Use the sw_films list to identify how many characters were represented in each film.
+
+```{r}
+
+
+
+```
+
+Part C: Some basic API calls
+
+Many of the list elements have urls for API calls. For example
+
+sw_films[[1]]$characters[1]
+## [1] "http://swapi.co/api/people/1/"
+The above provides the url necessary to make an API call for all the information available on the first character in the first film. Unfortunately, this API has since been deprecated. However, we’re going to use essentially equivalent API calls to instead obtain data about pokemon, via https://pokeapi.co/. Feel free to visit the website and look around.
+
+API’s are a way to host databases on the web, and make the data accessible via API calls. We’re going to look at abilities of pokemon. For example to obtain data on the first ability, we could run the following
+
+library(httr)
+ability1 <- GET("https://pokeapi.co/api/v2/ability/1") %>%
+	content("parsed") 
+The last digit in "https://pokeapi.co/api/v2/ability/1" is just an index denoting that this is the first ability listed in the database. To obtain data on the third ability, we would instead change our call to "https://pokeapi.co/api/v2/ability/3".
+
+If you look at the parsed content (it comes in as JSON data) you will see it is a nested list, just like we worked with above for Star Wars.
+
+We can identify what the specific ability is for ability 1 with
+
+ability1$name
+## [1] "stench"
+and the number of pokemon with this ability with
+
+length(ability1$pokemon)
+## [1] 8
+1.Use {purrr} to write an API call to obtain data on the first five abilities (note, we’re only using the first five to make the calls go fast, but the code would be essentially equivalent for any number of abilities you wanted to query). Make sure you parse the JSON data to a list.
+
+```{r}
+
+```
+
+Use the parsed data to create a data frame that has the given ability, and the number of pokemon with that ability.
+
+```{r}
+
+
+```
+
+Bonus: Up to 1 point extra credit
+1.Create a new data frame that lists the names of the pokemon with these specific abilities.
+Hint: Try to get the name for one pokemon first, then extend out the logic to get all pokemon names. Also, this is really freaking hard so don’t spend too much time on it and don’t worry if you can’t figure it out.
+
+```{r}
+
+```
