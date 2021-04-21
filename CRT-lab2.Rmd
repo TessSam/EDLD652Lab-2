@@ -1,5 +1,9 @@
 ---
 title: "CRT-lab2"
+author:
+  - "Tess Sameshima"
+  - "Chris Ives"
+  - "Rachael Latimer"
 output: html_document
 ---
 
@@ -29,12 +33,21 @@ benchmarks <- benchmarks %>%
 
 1.Fit a model of the form lm(math ~ wave) for each student.
 ```{r}
-
+by_student <- split(benchmarks, benchmarks$sid)
+str(by_student)
+mods <- map(by_student, ~lm(math ~ wave, data = .x))
 ```
 
 2.Plot the distribution of slopes. Annotate the plot with a vertical line for the mean.
 ```{r}
+coefs <- map(mods, coef)
+slopes <- map_dbl(coefs, 2)
 
+plotdata <- tibble(id = names(slopes), slope = slopes)
+plot1<- ggplot(plotdata, aes(slope)) +
+                 geom_histogram(fill = "cornflowerblue", color = "white") +
+                 geom_vline(aes(xintercept=mean(slope, na.rm=TRUE)))
+plot1
 ```
 
 
