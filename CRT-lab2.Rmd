@@ -58,14 +58,28 @@ Part B: Starwars
 ```{r}
 install.packages("repurrrsive")
 library(repurrrsive)
+
+swfilms <- sw_films
+
+#how many characters in each film?
+characternumbers <- vector("list",length(swfilms))
+for (i in 1:length(swfilms)) {
+  characternumbers[i] = length(swfilms[[i]]$characters)
+  
+}
+characternumbers
+
  
 
 ```
 
-2.Use the sw_films list to identify how many characters were represented in each film.
+2.Use the sw_species list to (a) identify species that have known hair colors and (b) identify what those hair colors are.
 
 ```{r}
-
+species_hair <- 
+  swspecies %>%  
+    map_dfr(`[`, c("name", "hair_colors")) %>%  
+      filter(hair_colors != "none" & hair_colors != "n/a" & hair_colors != "unknown")
 
 
 ```
