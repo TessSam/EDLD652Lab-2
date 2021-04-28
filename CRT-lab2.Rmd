@@ -123,6 +123,12 @@ Use the parsed data to create a data frame that has the given ability, and the n
 
 ```{r}
 
+name <- map_chr(abilities, ~ .x$name)
+
+count <- map_dbl(abilities, ~length(.x$pokemon))
+
+poke <- tibble(name, count)
+poke
 
 ```
 
