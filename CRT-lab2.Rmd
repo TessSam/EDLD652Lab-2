@@ -34,7 +34,7 @@ benchmarks <- benchmarks %>%
 1.Fit a model of the form lm(math ~ wave) for each student.
 ```{r}
 by_student <- split(benchmarks, benchmarks$sid)
-str(by_student)
+
 mods <- map(by_student, ~lm(math ~ wave, data = .x))
 ```
 
@@ -56,7 +56,7 @@ Part B: Starwars
 1.Use the sw_films list to identify how many characters were represented in each film.
 
 ```{r}
-install.packages("repurrrsive")
+#install.packages("repurrrsive")
 library(repurrrsive)
 
 swfilms <- sw_films
@@ -77,7 +77,7 @@ characternumbers
 
 ```{r}
 species_hair <- 
-  swspecies %>%  
+  sw_species %>%  
     map_dfr(`[`, c("name", "hair_colors")) %>%  
       filter(hair_colors != "none" & hair_colors != "n/a" & hair_colors != "unknown")
 
