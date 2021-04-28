@@ -112,6 +112,10 @@ length(ability1$pokemon)
 1.Use {purrr} to write an API call to obtain data on the first five abilities (note, we’re only using the first five to make the calls go fast, but the code would be essentially equivalent for any number of abilities you wanted to query). Make sure you parse the JSON data to a list.
 
 ```{r}
+library(httr)
+
+abilities <- map(1:5, ~ GET(paste0("https://pokeapi.co/api/v2/ability/", .x)) %>%
+	content("parsed"))
 
 ```
 
