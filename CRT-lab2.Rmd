@@ -81,7 +81,7 @@ species_hair <-
     map_dfr(`[`, c("name", "hair_colors")) %>%  
       filter(hair_colors != "none" & hair_colors != "n/a" & hair_colors != "unknown")
 
-
+species_hair
 ```
 
 Part C: Some basic API calls
